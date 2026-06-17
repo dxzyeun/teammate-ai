@@ -1,0 +1,7 @@
+# TeamMate AI 의존 패키지
+# 설치: pip install -r requirements.txt
+
+streamlit      # 나중에 UI(웹 화면)를 만들 때 사용
+pandas         # 표 데이터 처리
+plotly         # 기여도/진행률 그래프
+openai         # AI 자연어 파싱 & 조언 (API 키 필요)
