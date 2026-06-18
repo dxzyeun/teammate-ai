@@ -36,4 +36,4 @@ def render_advice_section(project):
 
         except Exception as e:
             st.error("AI 조언을 불러오는 중 오류가 발생했습니다.")
-            st.caption(f"오류 내용: {e}")
+            st.caption(f"오류 내용: {e}") 
