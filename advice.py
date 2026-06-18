@@ -34,6 +34,19 @@ def render_advice_section(project):
             )
             st.write(advice)
 
-        except Exception as e:
-            st.error("AI 조언을 불러오는 중 오류가 발생했습니다.")
-            st.caption(f"오류 내용: {e}") 
+        except Exception:
+            st.warning("API 키가 없어 기본 조언을 표시합니다.")
+
+            progress = project.progress()
+            workload = project.workload()
+
+            advice = f"""
+현재 진행률은 {progress}%입니다.
+
+우선 아직 완료되지 않은 작업부터 확인하고,
+중요도 '상'인 작업을 먼저 끝내는 것이 좋습니다.
+
+팀원별 작업 수는 {workload} 입니다.
+특정 팀원에게 작업이 몰려 있다면 역할을 다시 나누는 것이 좋습니다.
+"""
+            st.write(advice)
