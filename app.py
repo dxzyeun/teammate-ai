@@ -33,6 +33,15 @@ st.caption("팀 프로젝트의 역할·진행률·기여도를 한눈에 관리
 # ---------- 사이드바: 팀원 등록 (이다은) ----------
 with st.sidebar:
     st.header("👥 팀원 관리")
+
+    st.subheader("📈 프로젝트 현황")
+
+    st.metric("현재 진행률", f"{project.progress()}%")
+    st.metric("전체 작업 수", len(project.tasks))
+    st.metric("팀원 수", len(project.members))
+
+    st.divider()
+    
     new_member = st.text_input("팀원 이름 입력")
     if st.button("팀원 추가", width="stretch"):
         if new_member.strip():

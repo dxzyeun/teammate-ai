@@ -96,7 +96,31 @@ class Project:
             if t.assignee in load:
                 load[t.assignee] += 1
         return load
+    
+    # ----- 팀원별 작업 통계 -----
+    def member_stats(self) -> dict[str, dict[str, float]]:
+        """
+        팀원별 작업 통계를 계산한다.
+        각 팀원이 맡은 작업 수, 완료한 작업 수, 완료율(%)을 반환한다.
+        """
+        stats = {}
 
+        for m in self.members:
+            assigned = sum(1 for t in self.tasks if t.assignee == m)
+            completed = sum(1 for t in self.tasks if t.assignee == m and t.done)
+
+            completion_rate = 0.0
+            if assigned > 0:
+                completion_rate = round(completed / assigned * 100, 1)
+
+            stats[m] = {
+                "assigned": assigned,
+                "completed": completed,
+                "completion_rate": completion_rate,
+            }
+
+        return stats
+    
     # ----- 요약 (README/조언용 텍스트) -----
     def summary_text(self) -> str:
         """현재 상태를 사람이 읽기 좋은 글로 정리한다."""
