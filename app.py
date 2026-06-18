@@ -89,15 +89,36 @@ with tab_nl:
                 if not parsed:
                     st.warning("작업을 추출하지 못했어요. 문장을 더 구체적으로 써보세요.")
                 else:
+                    st.success("AI가 정리한 결과를 작업 목록에 등록했습니다.")
+
                     for item in parsed:
                         name = item.get("task", "이름없음")
+                        assignee = item.get("assignee", "미정")
+                        importance = item.get("importance", "중")
                         done = item.get("done", False)
+
+                        # 자연어 입력에서는 중요도 기본값을 '중'으로 두되,
+                        # 발표 시연용으로 완료된 작업은 '상', 진행 중 작업은 '중'으로 구분
+                        if done:
+                            importance = "상"
+                        else:
+                            importance = "중"
+
                         if done and project.complete_task(name):
-                            continue
-                        project.add_task(name, assignee=item.get("assignee"),
-                                         importance=item.get("importance", "중"), done=done)
-                    st.success("AI가 정리한 결과를 등록했습니다.")
-                    st.json(parsed)
+                            status = "완료"
+                        else:
+                            project.add_task(
+                                name,
+                                assignee=assignee,
+                                importance=importance,
+                                done=done
+                            )
+                            status = "완료" if done else "진행중"
+
+                        st.write(f"✓ {assignee} - {name} ({status}, 중요도: {importance})")
+
+                    st.info("작업 관리 탭에서 등록된 작업을 확인할 수 있습니다.")
+
             except Exception as e:
                 st.error(f"AI 호출에 실패했습니다: {e}")
 
