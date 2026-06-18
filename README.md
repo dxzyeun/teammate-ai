@@ -44,7 +44,9 @@
 
 ![AI 조언 화면](screenshots/AI조언.png)
 
-**실행 영상(1분 미만):** [여기에 GIF 또는 동영상 링크]
+**실행 영상(1분 미만)**
+
+https://youtu.be/rwwD-AgufbE?si=CzjonJ3gfzljrdN4
 
 ---
 
